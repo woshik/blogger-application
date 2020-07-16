@@ -43,8 +43,6 @@ exports.registration = (userInfo) => {
         success: true,
         info: {
           email: userInfo.email,
-          rd: rd,
-          token: token,
         },
       });
     } catch (error) {

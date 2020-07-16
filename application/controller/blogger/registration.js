@@ -17,7 +17,6 @@ exports.registration = (req, res, next) => {
 
   const validateResult = schema.validate({
     name: req.body.name,
-    mobile_number: req.body.mobile_number,
     email: req.body.email,
     password: req.body.password,
     confirm_password: req.body.confirm_password,
@@ -26,7 +25,7 @@ exports.registration = (req, res, next) => {
   if (validateResult.error) {
     return res.json({
       success: false,
-      message: fromErrorMessage(validateResult.error.details[0]),
+      message: validateResult.error.details[0].message,
     });
   }
 

@@ -12,17 +12,19 @@
 const MongoClient = require('mongodb').MongoClient;
 const { fileLogger } = require('../utils/serverErrorLogger');
 
-let _client = null;
+let _db = null,
+  _client = null;
 
 exports.connectWithMogodb = async () => {
   try {
-    
     _client = await MongoClient.connect(process.env.DB_CONNECTION, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       ssl: true,
       poolSize: 100,
     });
+    
+    _db = _client.db(process.env.DB_NAME);
   } catch (error) {
     fileLogger.error({
       server: 'global',
@@ -41,5 +43,16 @@ exports.getDBClient = () => {
     server: 'global',
     label: 'getDBClient',
     message: 'database client not found',
+  });
+};
+
+exports.getDB = () => {
+  if (_db) {
+    return _db;
+  }
+  fileLogger.error({
+    server: 'global',
+    label: 'getDB',
+    message: 'database found',
   });
 };

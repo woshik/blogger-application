@@ -1,2 +1,2 @@
-const { getDBClient } = require('../../database/connection');
-module.exports = getDBClient;
+const { getDB } = require('../../database/connection');
+module.exports = getDB;
